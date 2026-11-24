@@ -1,764 +1,2436 @@
 {
-  "recon_h3_library": {
+  "recon_h3_led": {
     "task": "recon_h3",
-    "frames": 90,
-    "fps": 25.0,
-    "seconds": 3.6,
-    "width": 2572,
-    "height": 1452,
-    "grid": [
-      2,
-      2
-    ],
-    "panel": [
-      1280,
-      720
-    ],
-    "gutter": 12,
-    "source_frames": [
-      90,
-      90,
-      90,
-      90
-    ],
-    "source_fps": [
-      25.0,
-      25.0,
-      25.0,
-      25.0
-    ],
-    "title": "Library",
-    "labels": [
-      "Ground truth",
-      "MiniMax-H3",
-      "StreamRender-H3",
-      "LiveVAE (ours)"
-    ],
-    "resolution": "720p"
-  },
-  "recon_h3_ice": {
-    "task": "recon_h3",
-    "frames": 90,
-    "fps": 60.0,
-    "seconds": 1.5,
-    "width": 2572,
-    "height": 1452,
-    "grid": [
-      2,
-      2
-    ],
-    "panel": [
-      1280,
-      720
-    ],
-    "gutter": 12,
-    "source_frames": [
-      90,
-      90,
-      90,
-      90
-    ],
-    "source_fps": [
-      60.0,
-      60.0,
-      60.0,
-      60.0
-    ],
-    "title": "Ice",
-    "labels": [
-      "Ground truth",
-      "MiniMax-H3",
-      "StreamRender-H3",
-      "LiveVAE (ours)"
-    ],
-    "resolution": "720p"
-  },
-  "recon_h3_cooking": {
-    "task": "recon_h3",
-    "frames": 90,
-    "fps": 25.0,
-    "seconds": 3.6,
-    "width": 2572,
-    "height": 1452,
-    "grid": [
-      2,
-      2
-    ],
-    "panel": [
-      1280,
-      720
-    ],
-    "gutter": 12,
-    "source_frames": [
-      90,
-      90,
-      90,
-      90
-    ],
-    "source_fps": [
-      25.0,
-      25.0,
-      25.0,
-      25.0
-    ],
-    "title": "Cooking",
-    "labels": [
-      "Ground truth",
-      "MiniMax-H3",
-      "StreamRender-H3",
-      "LiveVAE (ours)"
-    ],
-    "resolution": "720p"
-  },
-  "recon_h3_interior": {
-    "task": "recon_h3",
+    "title": "Stage LED strip",
     "frames": 90,
     "fps": 29.97,
     "seconds": 3.0,
-    "width": 2572,
-    "height": 1452,
-    "grid": [
-      2,
-      2
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.061"
+      },
+      {
+        "label": "TAEH3",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.250"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.170"
+      },
+      {
+        "label": "LynnReal-Omni",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.072"
+      },
+      {
+        "label": "Solar-X",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.089"
+      },
+      {
+        "label": "StreamRender-H3",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.097"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.047",
+        "ours": true
+      }
     ],
-    "panel": [
-      1280,
-      720
-    ],
-    "gutter": 12,
-    "source_frames": [
-      90,
-      90,
-      90,
-      90
-    ],
-    "source_fps": [
-      29.97,
-      29.97,
-      29.97,
-      29.97
-    ],
-    "title": "Interior",
-    "labels": [
-      "Ground truth",
-      "MiniMax-H3",
-      "StreamRender-H3",
-      "LiveVAE (ours)"
-    ],
-    "resolution": "720p"
+    "note": "LiveVAE keeps the LED beads apart. The fast decoders merge them and the end to end models break the strip up.",
+    "resolution": "720p",
+    "source_fps": 29.97,
+    "mark_frame": 80
   },
-  "recon_h3_stage": {
+  "recon_h3_mesh": {
     "task": "recon_h3",
-    "frames": 90,
-    "fps": 29.97,
+    "title": "Wire mesh",
+    "frames": 22,
+    "fps": 7.333,
     "seconds": 3.0,
-    "width": 2572,
-    "height": 1452,
-    "grid": [
-      2,
-      2
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.180"
+      },
+      {
+        "label": "TAEH3",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.307"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.208"
+      },
+      {
+        "label": "LynnReal-Omni",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.180"
+      },
+      {
+        "label": "Solar-X",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.191"
+      },
+      {
+        "label": "StreamRender-H3",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.208"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.074",
+        "ours": true
+      }
     ],
-    "panel": [
-      1280,
-      720
-    ],
-    "gutter": 12,
-    "source_frames": [
-      90,
-      90,
-      90,
-      90
-    ],
-    "source_fps": [
-      29.97,
-      29.97,
-      29.97,
-      29.97
-    ],
-    "title": "Stage fire",
-    "labels": [
-      "Ground truth",
-      "MiniMax-H3",
-      "StreamRender-H3",
-      "LiveVAE (ours)"
-    ],
-    "resolution": "720p"
+    "note": "LiveVAE rebuilds the diamond mesh. The fast decoders turn it into vertical stripes.",
+    "resolution": "720p",
+    "source_fps": 25.0,
+    "mark_frame": 9
   },
-  "recon_wan22_motocross": {
+  "recon_h3_blinds": {
+    "task": "recon_h3",
+    "title": "Window blinds",
+    "frames": 22,
+    "fps": 7.333,
+    "seconds": 3.0,
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.043"
+      },
+      {
+        "label": "TAEH3",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.162"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.166"
+      },
+      {
+        "label": "LynnReal-Omni",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.037"
+      },
+      {
+        "label": "Solar-X",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.032"
+      },
+      {
+        "label": "StreamRender-H3",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.069"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.012",
+        "ours": true
+      }
+    ],
+    "note": "The slats stay sharp and continuous with LiveVAE. They soften, turn blocky or vanish with the others.",
+    "resolution": "720p",
+    "source_fps": 23.98,
+    "mark_frame": 18
+  },
+  "recon_h3_text": {
+    "task": "recon_h3",
+    "title": "Small text",
+    "frames": 22,
+    "fps": 7.333,
+    "seconds": 3.0,
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.026"
+      },
+      {
+        "label": "TAEH3",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.124"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.099"
+      },
+      {
+        "label": "LynnReal-Omni",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.026"
+      },
+      {
+        "label": "Solar-X",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.024"
+      },
+      {
+        "label": "StreamRender-H3",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.028"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.014",
+        "ours": true
+      }
+    ],
+    "note": "The strokes of the small logo stay smooth with LiveVAE. The end to end models lose the letter shapes.",
+    "resolution": "720p",
+    "source_fps": 60.0,
+    "mark_frame": 12
+  },
+  "recon_h3_subtitle": {
+    "task": "recon_h3",
+    "title": "Subtitles",
+    "frames": 56,
+    "fps": 24.0,
+    "seconds": 2.33,
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.062"
+      },
+      {
+        "label": "TAEH3",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.243"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.196"
+      },
+      {
+        "label": "LynnReal-Omni",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.063"
+      },
+      {
+        "label": "Solar-X",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.090"
+      },
+      {
+        "label": "StreamRender-H3",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.100"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.040",
+        "ours": true
+      }
+    ],
+    "note": "The subtitle strokes stay legible with LiveVAE.",
+    "resolution": "720p",
+    "source_fps": 24.0,
+    "mark_frame": 21
+  },
+  "recon_h3_anime": {
+    "task": "recon_h3",
+    "title": "Anime line art",
+    "frames": 56,
+    "fps": 24.0,
+    "seconds": 2.33,
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.092"
+      },
+      {
+        "label": "TAEH3",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.265"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.206"
+      },
+      {
+        "label": "LynnReal-Omni",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.082"
+      },
+      {
+        "label": "Solar-X",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.091"
+      },
+      {
+        "label": "StreamRender-H3",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.095"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.045",
+        "ours": true
+      }
+    ],
+    "note": "LiveVAE restores the thin whiskers of the cat.",
+    "resolution": "720p",
+    "source_fps": 24.0,
+    "mark_frame": 12
+  },
+  "recon_h3_railing": {
+    "task": "recon_h3",
+    "title": "Iron railing",
+    "frames": 56,
+    "fps": 24.0,
+    "seconds": 2.33,
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.248"
+      },
+      {
+        "label": "TAEH3",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.406"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.418"
+      },
+      {
+        "label": "LynnReal-Omni",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.242"
+      },
+      {
+        "label": "Solar-X",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.264"
+      },
+      {
+        "label": "StreamRender-H3",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.278"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.145",
+        "ours": true
+      }
+    ],
+    "note": "The bars of the railing stay separate with LiveVAE.",
+    "resolution": "720p",
+    "source_fps": 24.0,
+    "mark_frame": 5
+  },
+  "recon_h3_faces": {
+    "task": "recon_h3",
+    "title": "Face in a crowd",
+    "frames": 56,
+    "fps": 24.0,
+    "seconds": 2.33,
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.155"
+      },
+      {
+        "label": "TAEH3",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.316"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.277"
+      },
+      {
+        "label": "LynnReal-Omni",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.164"
+      },
+      {
+        "label": "Solar-X",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.166"
+      },
+      {
+        "label": "StreamRender-H3",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.178"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.111",
+        "ours": true
+      }
+    ],
+    "note": "The small face keeps its features with LiveVAE.",
+    "resolution": "720p",
+    "source_fps": 24.0,
+    "mark_frame": 12
+  },
+  "recon_wan22_led": {
     "task": "recon_wan22",
+    "title": "Stage LED strip",
     "frames": 89,
-    "fps": 50.0,
-    "seconds": 1.78,
-    "width": 2572,
-    "height": 1452,
-    "grid": [
-      2,
-      2
+    "fps": 29.97,
+    "seconds": 2.97,
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "Wan2.2",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.093"
+      },
+      {
+        "label": "TAEW2.2",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.052"
+      },
+      {
+        "label": "TAEW2.2-Super",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.036"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.139"
+      },
+      {
+        "label": "LightVAE-Pro",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.038"
+      },
+      {
+        "label": "Turbo-VAED",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.030"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.015",
+        "ours": true
+      }
     ],
-    "panel": [
-      1280,
-      720
-    ],
-    "gutter": 12,
-    "source_frames": [
-      89,
-      89,
-      89,
-      89
-    ],
-    "source_fps": [
-      50.0,
-      50.0,
-      50.0,
-      50.0
-    ],
-    "title": "Motocross",
-    "labels": [
-      "Ground truth",
-      "Wan2.2",
-      "LightVAE-Pro",
-      "LiveVAE (ours)"
-    ],
-    "resolution": "720p"
+    "note": "LiveVAE keeps the LED beads apart. The official Wan2.2 VAE shows horizontal banding.",
+    "resolution": "720p",
+    "source_fps": 29.97,
+    "mark_frame": 72
   },
-  "recon_wan22_kayak": {
+  "recon_wan22_brush": {
     "task": "recon_wan22",
-    "frames": 89,
-    "fps": 25.0,
-    "seconds": 3.56,
-    "width": 2572,
-    "height": 1452,
-    "grid": [
-      2,
-      2
+    "title": "Brush ferrule",
+    "frames": 21,
+    "fps": 7.0,
+    "seconds": 3.0,
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "Wan2.2",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.175"
+      },
+      {
+        "label": "TAEW2.2",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.523"
+      },
+      {
+        "label": "TAEW2.2-Super",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.528"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.364"
+      },
+      {
+        "label": "LightVAE-Pro",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.253"
+      },
+      {
+        "label": "Turbo-VAED",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.346"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.099",
+        "ours": true
+      }
     ],
-    "panel": [
-      1280,
-      720
-    ],
-    "gutter": 12,
-    "source_frames": [
-      89,
-      89,
-      89,
-      89
-    ],
-    "source_fps": [
-      25.0,
-      25.0,
-      25.0,
-      25.0
-    ],
-    "title": "Ice kayak",
-    "labels": [
-      "Ground truth",
-      "Wan2.2",
-      "LightVAE-Pro",
-      "LiveVAE (ours)"
-    ],
-    "resolution": "720p"
+    "note": "LiveVAE keeps the fine vertical ridges and the embossed mark on the metal.",
+    "resolution": "720p",
+    "source_fps": 25.0,
+    "mark_frame": 5
   },
-  "recon_wan22_library": {
+  "recon_wan22_anime": {
     "task": "recon_wan22",
-    "frames": 89,
-    "fps": 25.0,
-    "seconds": 3.56,
-    "width": 2572,
-    "height": 1452,
-    "grid": [
-      2,
-      2
+    "title": "Anime building",
+    "frames": 81,
+    "fps": 24.0,
+    "seconds": 3.38,
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "Wan2.2",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.153"
+      },
+      {
+        "label": "TAEW2.2",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.288"
+      },
+      {
+        "label": "TAEW2.2-Super",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.210"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.273"
+      },
+      {
+        "label": "LightVAE-Pro",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.173"
+      },
+      {
+        "label": "Turbo-VAED",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.203"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.045",
+        "ours": true
+      }
     ],
-    "panel": [
-      1280,
-      720
-    ],
-    "gutter": 12,
-    "source_frames": [
-      89,
-      89,
-      89,
-      89
-    ],
-    "source_fps": [
-      25.0,
-      25.0,
-      25.0,
-      25.0
-    ],
-    "title": "Library",
-    "labels": [
-      "Ground truth",
-      "Wan2.2",
-      "LightVAE-Pro",
-      "LiveVAE (ours)"
-    ],
-    "resolution": "720p"
+    "note": "The diagonal lines on the facade survive with LiveVAE.",
+    "resolution": "720p",
+    "source_fps": 24.0,
+    "mark_frame": 12
   },
-  "recon_wan22_workers": {
+  "recon_wan22_tennis": {
     "task": "recon_wan22",
-    "frames": 89,
-    "fps": 25.0,
-    "seconds": 3.56,
-    "width": 2572,
-    "height": 1452,
-    "grid": [
-      2,
-      2
+    "title": "Tennis scoreboard",
+    "frames": 81,
+    "fps": 24.0,
+    "seconds": 3.38,
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "Wan2.2",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.143"
+      },
+      {
+        "label": "TAEW2.2",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.348"
+      },
+      {
+        "label": "TAEW2.2-Super",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.263"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.250"
+      },
+      {
+        "label": "LightVAE-Pro",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.174"
+      },
+      {
+        "label": "Turbo-VAED",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.272"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.093",
+        "ours": true
+      }
     ],
-    "panel": [
-      1280,
-      720
-    ],
-    "gutter": 12,
-    "source_frames": [
-      89,
-      89,
-      89,
-      89
-    ],
-    "source_fps": [
-      25.0,
-      25.0,
-      25.0,
-      25.0
-    ],
-    "title": "Workers",
-    "labels": [
-      "Ground truth",
-      "Wan2.2",
-      "LightVAE-Pro",
-      "LiveVAE (ours)"
-    ],
-    "resolution": "720p"
+    "note": "The ball kids and the scoreboard digits keep their shape with LiveVAE.",
+    "resolution": "720p",
+    "source_fps": 24.0,
+    "mark_frame": 5
   },
-  "gaming_01": {
+  "recon_wan22_faces": {
+    "task": "recon_wan22",
+    "title": "Face in a crowd",
+    "frames": 81,
+    "fps": 24.0,
+    "seconds": 3.38,
+    "width": 2104,
+    "height": 854,
+    "panels": [
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          0,
+          1048,
+          590
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1056,
+          0,
+          1048,
+          590
+        ],
+        "ours": true
+      },
+      {
+        "label": "Ground truth",
+        "rect": [
+          0,
+          598,
+          256,
+          256
+        ],
+        "zoom": true
+      },
+      {
+        "label": "Wan2.2",
+        "rect": [
+          264,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.213"
+      },
+      {
+        "label": "TAEW2.2",
+        "rect": [
+          528,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.575"
+      },
+      {
+        "label": "TAEW2.2-Super",
+        "rect": [
+          792,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.522"
+      },
+      {
+        "label": "LightVAE-Lite",
+        "rect": [
+          1056,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.498"
+      },
+      {
+        "label": "LightVAE-Pro",
+        "rect": [
+          1320,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.393"
+      },
+      {
+        "label": "Turbo-VAED",
+        "rect": [
+          1584,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.565"
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1848,
+          598,
+          256,
+          256
+        ],
+        "zoom": true,
+        "sub": "LPIPS 0.218",
+        "ours": true
+      }
+    ],
+    "note": "The small face keeps its features with LiveVAE.",
+    "resolution": "720p",
+    "source_fps": 24.0,
+    "mark_frame": 5
+  },
+  "r2v_gaming_01": {
     "task": "r2v",
-    "frames": 124,
-    "fps": 24,
-    "seconds": 5.17,
-    "width": 1944,
-    "height": 360,
-    "grid": [
-      3,
-      1
-    ],
-    "panel": [
-      640,
-      360
-    ],
-    "gutter": 12,
-    "source_frames": [
-      124,
-      124,
-      124
-    ],
-    "source_fps": [
-      24,
-      24,
-      24
-    ],
-    "agreement_db": {
-      "first_frame": 36.8,
-      "median": 31.3
-    },
     "title": "Gaming",
-    "labels": [
-      "Clay render",
-      "MiniMax-H3",
-      "LiveVAE (ours)"
+    "frames": 124,
+    "fps": 24.0,
+    "seconds": 5.17,
+    "width": 2916,
+    "height": 408,
+    "panels": [
+      {
+        "label": "Reference image",
+        "rect": [
+          0,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "Code video",
+        "rect": [
+          732,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          1464,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          2196,
+          0,
+          720,
+          408
+        ],
+        "ours": true
+      }
     ]
   },
-  "robotics_simulation_01_a": {
+  "r2v_robotics_simulation_01_a": {
     "task": "r2v",
-    "frames": 124,
-    "fps": 24,
-    "seconds": 5.17,
-    "width": 1944,
-    "height": 360,
-    "grid": [
-      3,
-      1
-    ],
-    "panel": [
-      640,
-      360
-    ],
-    "gutter": 12,
-    "source_frames": [
-      124,
-      124,
-      124
-    ],
-    "source_fps": [
-      24,
-      24,
-      24
-    ],
-    "agreement_db": {
-      "first_frame": 35.3,
-      "median": 23.4
-    },
     "title": "Robotics simulation",
-    "labels": [
-      "Clay render",
-      "MiniMax-H3",
-      "LiveVAE (ours)"
+    "frames": 124,
+    "fps": 24.0,
+    "seconds": 5.17,
+    "width": 2916,
+    "height": 408,
+    "panels": [
+      {
+        "label": "Reference image",
+        "rect": [
+          0,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "Code video",
+        "rect": [
+          732,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          1464,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          2196,
+          0,
+          720,
+          408
+        ],
+        "ours": true
+      }
     ]
   },
-  "scene_world_editing_01_a": {
+  "r2v_physical_grounding_01": {
     "task": "r2v",
-    "frames": 124,
-    "fps": 24,
-    "seconds": 5.17,
-    "width": 1944,
-    "height": 360,
-    "grid": [
-      3,
-      1
-    ],
-    "panel": [
-      640,
-      360
-    ],
-    "gutter": 12,
-    "source_frames": [
-      124,
-      124,
-      124
-    ],
-    "source_fps": [
-      24,
-      24,
-      24
-    ],
-    "agreement_db": {
-      "first_frame": 24.8,
-      "median": 27.9
-    },
-    "title": "Scene and world editing",
-    "labels": [
-      "Clay render",
-      "MiniMax-H3",
-      "LiveVAE (ours)"
-    ]
-  },
-  "trajectory_variation_01_a": {
-    "task": "r2v",
-    "frames": 124,
-    "fps": 24,
-    "seconds": 5.17,
-    "width": 1944,
-    "height": 360,
-    "grid": [
-      3,
-      1
-    ],
-    "panel": [
-      640,
-      360
-    ],
-    "gutter": 12,
-    "source_frames": [
-      124,
-      124,
-      124
-    ],
-    "source_fps": [
-      24,
-      24,
-      24
-    ],
-    "agreement_db": {
-      "first_frame": 36.4,
-      "median": 36.5
-    },
-    "title": "Trajectory variation",
-    "labels": [
-      "Clay render",
-      "MiniMax-H3",
-      "LiveVAE (ours)"
-    ]
-  },
-  "physical_grounding_01": {
-    "task": "r2v",
-    "frames": 124,
-    "fps": 24,
-    "seconds": 5.17,
-    "width": 1944,
-    "height": 360,
-    "grid": [
-      3,
-      1
-    ],
-    "panel": [
-      640,
-      360
-    ],
-    "gutter": 12,
-    "source_frames": [
-      124,
-      124,
-      124
-    ],
-    "source_fps": [
-      24,
-      24,
-      24
-    ],
-    "agreement_db": {
-      "first_frame": 20.7,
-      "median": 20.9
-    },
     "title": "Physical grounding",
-    "labels": [
-      "Clay render",
-      "MiniMax-H3",
-      "LiveVAE (ours)"
+    "frames": 124,
+    "fps": 24.0,
+    "seconds": 5.17,
+    "width": 2916,
+    "height": 408,
+    "panels": [
+      {
+        "label": "Reference image",
+        "rect": [
+          0,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "Code video",
+        "rect": [
+          732,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          1464,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          2196,
+          0,
+          720,
+          408
+        ],
+        "ours": true
+      }
     ]
   },
-  "architectural_cinematics_01": {
+  "r2v_architectural_cinematics_01": {
     "task": "r2v",
-    "frames": 124,
-    "fps": 24,
-    "seconds": 5.17,
-    "width": 1944,
-    "height": 360,
-    "grid": [
-      3,
-      1
-    ],
-    "panel": [
-      640,
-      360
-    ],
-    "gutter": 12,
-    "source_frames": [
-      124,
-      124,
-      124
-    ],
-    "source_fps": [
-      24,
-      24,
-      24
-    ],
-    "agreement_db": {
-      "first_frame": 29.4,
-      "median": 20.9
-    },
     "title": "Architectural cinematics",
-    "labels": [
-      "Clay render",
-      "MiniMax-H3",
-      "LiveVAE (ours)"
+    "frames": 124,
+    "fps": 24.0,
+    "seconds": 5.17,
+    "width": 2916,
+    "height": 408,
+    "panels": [
+      {
+        "label": "Reference image",
+        "rect": [
+          0,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "Code video",
+        "rect": [
+          732,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          1464,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          2196,
+          0,
+          720,
+          408
+        ],
+        "ours": true
+      }
     ]
   },
-  "product_cinematography_01": {
+  "r2v_product_cinematography_02": {
     "task": "r2v",
-    "frames": 124,
-    "fps": 24,
-    "seconds": 5.17,
-    "width": 1944,
-    "height": 360,
-    "grid": [
-      3,
-      1
-    ],
-    "panel": [
-      640,
-      360
-    ],
-    "gutter": 12,
-    "source_frames": [
-      124,
-      124,
-      124
-    ],
-    "source_fps": [
-      24,
-      24,
-      24
-    ],
-    "agreement_db": {
-      "first_frame": 37.7,
-      "median": 23.1
-    },
     "title": "Product cinematography",
-    "labels": [
-      "Clay render",
-      "MiniMax-H3",
-      "LiveVAE (ours)"
-    ]
-  },
-  "t2v_camera": {
-    "task": "t2v",
     "frames": 124,
     "fps": 24.0,
     "seconds": 5.17,
-    "width": 2764,
-    "height": 768,
-    "grid": [
-      2,
-      1
-    ],
-    "panel": [
-      1376,
-      768
-    ],
-    "gutter": 12,
-    "source_frames": [
-      124,
-      124
-    ],
-    "source_fps": [
-      24.0,
-      24.0
-    ],
-    "agreement_db": {
-      "first_frame": 39.7,
-      "median": 41.8
-    },
-    "title": "Handing over a camera",
-    "labels": [
-      "MiniMax-H3",
-      "LiveVAE (ours)"
+    "width": 2916,
+    "height": 408,
+    "panels": [
+      {
+        "label": "Reference image",
+        "rect": [
+          0,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "Code video",
+        "rect": [
+          732,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          1464,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          2196,
+          0,
+          720,
+          408
+        ],
+        "ours": true
+      }
     ]
   },
-  "t2v_fox": {
-    "task": "t2v",
+  "r2v_scene_world_editing_01_a": {
+    "task": "r2v",
+    "title": "Scene and world editing",
     "frames": 124,
     "fps": 24.0,
     "seconds": 5.17,
-    "width": 2764,
-    "height": 768,
-    "grid": [
-      2,
-      1
-    ],
-    "panel": [
-      1376,
-      768
-    ],
-    "gutter": 12,
-    "source_frames": [
-      124,
-      124
-    ],
-    "source_fps": [
-      24.0,
-      24.0
-    ],
-    "agreement_db": {
-      "first_frame": 40.1,
-      "median": 41.9
-    },
+    "width": 2916,
+    "height": 408,
+    "panels": [
+      {
+        "label": "Reference image",
+        "rect": [
+          0,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "Code video",
+        "rect": [
+          732,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          1464,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          2196,
+          0,
+          720,
+          408
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "r2v_trajectory_variation_02_a": {
+    "task": "r2v",
+    "title": "Trajectory variation",
+    "frames": 124,
+    "fps": 24.0,
+    "seconds": 5.17,
+    "width": 2916,
+    "height": 408,
+    "panels": [
+      {
+        "label": "Reference image",
+        "rect": [
+          0,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "Code video",
+        "rect": [
+          732,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          1464,
+          0,
+          720,
+          408
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          2196,
+          0,
+          720,
+          408
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_h3_skyline": {
+    "task": "t2v_h3",
+    "title": "City skyline",
+    "frames": 124,
+    "fps": 24.0,
+    "seconds": 5.17,
+    "width": 2076,
+    "height": 576,
+    "panels": [
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          0,
+          0,
+          1032,
+          576
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1044,
+          0,
+          1032,
+          576
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_h3_fox": {
+    "task": "t2v_h3",
     "title": "Fox and shoe",
-    "labels": [
-      "MiniMax-H3",
-      "LiveVAE (ours)"
-    ]
-  },
-  "t2v_sunrise": {
-    "task": "t2v",
     "frames": 124,
     "fps": 24.0,
     "seconds": 5.17,
-    "width": 2764,
-    "height": 768,
-    "grid": [
-      2,
-      1
-    ],
-    "panel": [
-      1376,
-      768
-    ],
-    "gutter": 12,
-    "source_frames": [
-      124,
-      124
-    ],
-    "source_fps": [
-      24.0,
-      24.0
-    ],
-    "agreement_db": {
-      "first_frame": 42.4,
-      "median": 41.4
-    },
+    "width": 2076,
+    "height": 576,
+    "panels": [
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          0,
+          0,
+          1032,
+          576
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1044,
+          0,
+          1032,
+          576
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_h3_bridge": {
+    "task": "t2v_h3",
+    "title": "Golden Gate Bridge",
+    "frames": 124,
+    "fps": 24.0,
+    "seconds": 5.17,
+    "width": 2076,
+    "height": 576,
+    "panels": [
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          0,
+          0,
+          1032,
+          576
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1044,
+          0,
+          1032,
+          576
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_h3_sunrise": {
+    "task": "t2v_h3",
     "title": "Mountain sunrise",
-    "labels": [
-      "MiniMax-H3",
-      "LiveVAE (ours)"
-    ]
-  },
-  "t2v_panda": {
-    "task": "t2v",
     "frames": 124,
     "fps": 24.0,
     "seconds": 5.17,
-    "width": 2764,
-    "height": 768,
-    "grid": [
-      2,
-      1
-    ],
-    "panel": [
-      1376,
-      768
-    ],
-    "gutter": 12,
-    "source_frames": [
-      124,
-      124
-    ],
-    "source_fps": [
-      24.0,
-      24.0
-    ],
-    "agreement_db": {
-      "first_frame": 40.7,
-      "median": 40.4
-    },
+    "width": 2076,
+    "height": 576,
+    "panels": [
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          0,
+          0,
+          1032,
+          576
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1044,
+          0,
+          1032,
+          576
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_h3_camera": {
+    "task": "t2v_h3",
+    "title": "Handing over a camera",
+    "frames": 124,
+    "fps": 24.0,
+    "seconds": 5.17,
+    "width": 2076,
+    "height": 576,
+    "panels": [
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          0,
+          0,
+          1032,
+          576
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1044,
+          0,
+          1032,
+          576
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_h3_paintbrush": {
+    "task": "t2v_h3",
+    "title": "Paintbrush",
+    "frames": 124,
+    "fps": 24.0,
+    "seconds": 5.17,
+    "width": 2076,
+    "height": 576,
+    "panels": [
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          0,
+          0,
+          1032,
+          576
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1044,
+          0,
+          1032,
+          576
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_h3_coconut": {
+    "task": "t2v_h3",
+    "title": "Coconut oil",
+    "frames": 124,
+    "fps": 24.0,
+    "seconds": 5.17,
+    "width": 2076,
+    "height": 576,
+    "panels": [
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          0,
+          0,
+          1032,
+          576
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1044,
+          0,
+          1032,
+          576
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_h3_iodine": {
+    "task": "t2v_h3",
+    "title": "Iodine crystals",
+    "frames": 124,
+    "fps": 24.0,
+    "seconds": 5.17,
+    "width": 2076,
+    "height": 576,
+    "panels": [
+      {
+        "label": "MiniMax-H3",
+        "rect": [
+          0,
+          0,
+          1032,
+          576
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          1044,
+          0,
+          1032,
+          576
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_wan22_panda": {
+    "task": "t2v_wan22",
     "title": "Panda",
-    "labels": [
-      "MiniMax-H3",
-      "LiveVAE (ours)"
+    "frames": 121,
+    "fps": 24.0,
+    "seconds": 5.04,
+    "width": 1932,
+    "height": 528,
+    "panels": [
+      {
+        "label": "Wan2.2",
+        "rect": [
+          0,
+          0,
+          960,
+          528
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          972,
+          0,
+          960,
+          528
+        ],
+        "ours": true
+      }
     ]
   },
-  "t2v_coffee": {
-    "task": "t2v",
+  "t2v_wan22_whale": {
+    "task": "t2v_wan22",
+    "title": "Whale",
+    "frames": 121,
+    "fps": 24.0,
+    "seconds": 5.04,
+    "width": 1932,
+    "height": 528,
+    "panels": [
+      {
+        "label": "Wan2.2",
+        "rect": [
+          0,
+          0,
+          960,
+          528
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          972,
+          0,
+          960,
+          528
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_wan22_coffee": {
+    "task": "t2v_wan22",
+    "title": "Coffee and milk",
+    "frames": 121,
+    "fps": 24.0,
+    "seconds": 5.04,
+    "width": 1932,
+    "height": 528,
+    "panels": [
+      {
+        "label": "Wan2.2",
+        "rect": [
+          0,
+          0,
+          960,
+          528
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          972,
+          0,
+          960,
+          528
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_wan22_skyline": {
+    "task": "t2v_wan22",
+    "title": "City skyline",
+    "frames": 121,
+    "fps": 24.0,
+    "seconds": 5.04,
+    "width": 1932,
+    "height": 528,
+    "panels": [
+      {
+        "label": "Wan2.2",
+        "rect": [
+          0,
+          0,
+          960,
+          528
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          972,
+          0,
+          960,
+          528
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_wan22_bridge": {
+    "task": "t2v_wan22",
+    "title": "Golden Gate Bridge",
+    "frames": 121,
+    "fps": 24.0,
+    "seconds": 5.04,
+    "width": 1932,
+    "height": 528,
+    "panels": [
+      {
+        "label": "Wan2.2",
+        "rect": [
+          0,
+          0,
+          960,
+          528
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          972,
+          0,
+          960,
+          528
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_wan22_sunrise": {
+    "task": "t2v_wan22",
+    "title": "Mountain sunrise",
+    "frames": 121,
+    "fps": 24.0,
+    "seconds": 5.04,
+    "width": 1932,
+    "height": 528,
+    "panels": [
+      {
+        "label": "Wan2.2",
+        "rect": [
+          0,
+          0,
+          960,
+          528
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          972,
+          0,
+          960,
+          528
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_wan22_camera": {
+    "task": "t2v_wan22",
+    "title": "Handing over a camera",
+    "frames": 121,
+    "fps": 24.0,
+    "seconds": 5.04,
+    "width": 1932,
+    "height": 528,
+    "panels": [
+      {
+        "label": "Wan2.2",
+        "rect": [
+          0,
+          0,
+          960,
+          528
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          972,
+          0,
+          960,
+          528
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "t2v_wan22_paintbrush": {
+    "task": "t2v_wan22",
+    "title": "Paintbrush",
+    "frames": 121,
+    "fps": 24.0,
+    "seconds": 5.04,
+    "width": 1932,
+    "height": 528,
+    "panels": [
+      {
+        "label": "Wan2.2",
+        "rect": [
+          0,
+          0,
+          960,
+          528
+        ]
+      },
+      {
+        "label": "LiveVAE (ours)",
+        "rect": [
+          972,
+          0,
+          960,
+          528
+        ],
+        "ours": true
+      }
+    ]
+  },
+  "race_h3": {
+    "task": "race",
+    "model": "h3",
     "frames": 124,
     "fps": 24.0,
-    "seconds": 5.17,
-    "width": 2764,
-    "height": 768,
-    "grid": [
-      2,
-      1
+    "width": 1032,
+    "height": 576,
+    "files": [
+      "race_h3_official",
+      "race_h3_ours"
     ],
-    "panel": [
-      1376,
-      768
-    ],
-    "gutter": 12,
-    "source_frames": [
-      124,
-      124
-    ],
-    "source_fps": [
-      24.0,
-      24.0
-    ],
-    "agreement_db": {
-      "first_frame": 42.0,
-      "median": 38.8
-    },
-    "title": "Coffee pour",
     "labels": [
-      "MiniMax-H3",
-      "LiveVAE (ours)"
+      "MiniMax-H3 VAE (official)",
+      "LiveVAE"
+    ]
+  },
+  "race_wan22": {
+    "task": "race",
+    "model": "wan22",
+    "frames": 121,
+    "fps": 24.0,
+    "width": 960,
+    "height": 528,
+    "files": [
+      "race_wan22_official",
+      "race_wan22_ours"
+    ],
+    "labels": [
+      "Wan2.2 VAE (official)",
+      "LiveVAE"
     ]
   }
 }

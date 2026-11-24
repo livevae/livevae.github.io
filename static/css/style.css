@@ -259,18 +259,14 @@ button.arrow:disabled { opacity: .4; cursor: default; }
 .all-view video { display: block; width: 100%; height: 100%; }
 .all-labels span { position: absolute; margin: 8px 0 0 8px; padding: 1px 7px; border-radius: 4px; background: rgba(18, 27, 41, .78); color: #fff; font-size: 13px; font-weight: 600; line-height: 1.6; pointer-events: none; white-space: nowrap; }
 .all-labels span.ours { background: var(--accent); }
-.wipe-pick { display: inline-flex; gap: 6px; align-items: center; margin: 0 0 8px; font-size: 14px; color: var(--muted); }
-.wipe-pick select { border: 1px solid var(--rule); border-radius: 6px; padding: 2px 6px; font: inherit; font-size: 14px; color: var(--text); background: #fff; }
-.compare-stage { --split: 50%; --tile: 16 / 9; position: relative; aspect-ratio: var(--tile); overflow: hidden; max-width: 900px; }
-.compare-stage .view { position: absolute; inset: 0; margin: 0; }
-.view canvas { width: 100%; height: 100%; display: block; }
-.view-a { z-index: 1; clip-path: inset(0 calc(100% - var(--split)) 0 0); }
-.compare-stage figcaption { position: absolute; z-index: 1; left: 8px; top: 8px; margin: 0; border-radius: 4px; background: rgba(18, 27, 41, .78); color: #fff; padding: 1px 7px; font-size: 13px; font-weight: 600; }
-.view-b figcaption { right: 8px; left: auto; background: var(--accent); }
-.wipe-range { opacity: 0; position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; z-index: 4; cursor: ew-resize; touch-action: pan-y; }
-#wipe-handle { position: absolute; pointer-events: none; left: var(--split); top: 0; bottom: 0; z-index: 3; width: 2px; background: #fff; box-shadow: 0 0 4px rgba(0, 0, 0, .5); }
-#wipe-handle span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #fff; color: var(--text); padding: 1px 8px 3px; border-radius: 16px; white-space: nowrap; box-shadow: 0 1px 6px rgba(0, 0, 0, .35); font: bold 19px/1 Arial; }
-.compare-stage:focus-within { outline: 2px solid var(--link); outline-offset: 2px; }
+.all-view.has-below { margin-bottom: 46px; }
+.all-labels span.below { margin: 5px 0 0; padding: 0; background: none; color: var(--text); text-align: center; font-size: 12.5px; line-height: 1.35; white-space: normal; }
+.all-labels span.below.ours { color: var(--accent); background: none; }
+.all-labels span.below small { display: block; color: var(--muted); font-size: 11.5px; font-weight: 400; font-variant-numeric: tabular-nums; }
+.all-labels span.below.ours small { color: var(--accent); font-weight: 600; }
+.all-labels i { position: absolute; box-shadow: inset 0 0 0 3px var(--accent); pointer-events: none; }
+.example-note { margin: 0 0 10px; font-size: 15px; }
+.zoom-legend { display: none; margin: 8px 0 0; color: var(--muted); font-size: 13px; }
 .transport { display: flex; align-items: center; gap: 12px; margin: 10px 0 0; }
 .transport button { min-width: 64px; border: 1px solid var(--rule); border-radius: 6px; padding: 3px 10px; background: #fff; color: var(--text); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
 .transport input { flex: 1; min-width: 30px; accent-color: var(--text); }
@@ -325,7 +321,11 @@ footer { padding-top: 44px; padding-bottom: 48px; color: var(--muted); font-size
   .time-head span, .time-row > span:first-child, .time-row b { font-size: 12px; }
   .tile { height: 36px; }
   .example-head { flex-direction: column; align-items: flex-start; }
-  .all-labels span, .compare-stage figcaption { margin: 4px 0 0 4px; padding: 0 5px; font-size: 11px; }
+  .all-view.has-below { margin-bottom: 0; }
+  .all-labels span.below { display: none; }
+  .all-labels i { box-shadow: inset 0 0 0 2px var(--accent); }
+  .zoom-legend:not(:empty) { display: block; }
+  .all-labels span { margin: 4px 0 0 4px; padding: 0 5px; font-size: 11px; }
   .teaser-pair { gap: 6px; }
   .eff-grid { grid-template-columns: minmax(0, 1fr); row-gap: 26px; }
   .eff-card { grid-template-rows: none; grid-row: auto; }
@@ -397,3 +397,36 @@ footer { padding-top: 44px; padding-bottom: 48px; color: var(--muted); font-size
   .sp-bar b.inside { margin-left: 0; }
   .sp-ticks span.minor { display: none; }
 }
+
+/* ---------- Decoding race ---------- */
+.race { margin: 34px 0 0; }
+.race-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 10px; }
+.race-head h3 { margin: 0; font-size: 18px; line-height: 1.4; }
+.race-controls { display: flex; align-items: center; gap: 10px; }
+.race .replay { border: 1px solid var(--rule); border-radius: 6px; padding: 3px 10px; background: #fff; color: var(--text); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.race-lanes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.lane-video { position: relative; background: #eef0f3; }
+.lane-video video { display: block; width: 100%; height: auto; }
+.lane-tag { position: absolute; left: 8px; top: 8px; padding: 1px 7px; border-radius: 4px; background: rgba(18, 27, 41, .78); color: #fff; font-size: 13px; font-weight: 600; line-height: 1.6; }
+.lane.ours .lane-tag { background: var(--accent); }
+.lane-bar { height: 6px; margin: 8px 0 0; background: var(--rule); }
+.lane-bar i { display: block; width: 0; height: 100%; background: var(--muted); }
+.lane.ours .lane-bar i { background: var(--accent); }
+.lane p { display: flex; justify-content: space-between; align-items: baseline; margin: 6px 0 0; color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+.lane p b { font-size: 20px; color: var(--muted); }
+.lane.ours p b { color: var(--accent); }
+.race figcaption { margin: 12px 0 0; }
+.lane p b { white-space: nowrap; }
+@media (max-width: 760px) {
+  .race-lanes { gap: 8px; }
+  .lane-tag { left: 4px; top: 4px; padding: 0 5px; font-size: 11px; }
+  .lane p { font-size: 12px; gap: 6px; }
+  .lane p b { font-size: 15px; }
+}
+.settings { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 4px 0 10px; }
+.settings dt { color: var(--muted); font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.settings dd { margin: 0; color: var(--text); font-size: 15px; font-weight: 600; }
+.settings-notes { margin: 0; }
+.abstract-short { max-width: var(--column); margin: 0; }
+.abstract-more .abstract { margin: 10px 0 0; }
+.abstract-more { max-width: none; }

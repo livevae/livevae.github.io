@@ -9,7 +9,7 @@ Live site: https://ddxsg24.github.io/LiveVAE-page/
 ```
 index.html               the whole page
 static/css/style.css     styles
-static/js/main.js        result tabs built from static/videos/clips.json, lazy video playback, BibTeX copy
+static/js/main.js        result tabs and decoding race built from static/videos/clips.json, speed table, BibTeX copy
 static/js/explainer.js   step by step animations of the Locality and Method sections
 static/images/           paper figures (teaser, motivation, method overview, efficiency plots)
 static/images/locality/  example frame and receptive field maps used by the Locality animation
@@ -33,25 +33,35 @@ Then fill `\projectpageurl` in the paper's `main.tex` with the live site address
 
 ## Videos
 
-Every clip is a single MP4 holding all methods side by side, so the panels of a clip
-always stay in sync. `tools/build_videos.py` builds them from the result folders:
+Every clip is a single MP4 holding all of its panels, so the panels of a clip always
+stay in sync. `tools/build_videos.py` builds them from the demo showcase folder
+(`reconstruction/` and `generation/`, the raw material behind the demo deck):
 
 ```
-python tools/build_videos.py --recon reconstruction --r2v generation_ref2va_h3_vs_ours --t2v t2v
+python tools/build_videos.py --src demo_video_showcase
 ```
 
-For each clip it cuts all panels to the same number of frames and keeps the clip's own
-frame rate (reconstruction sources run at 25, 30 or 50 fps; generations at 24 fps), so
-clip lengths differ on purpose. It writes `static/videos/<name>.mp4`, a poster
+Pass `--ffmpeg PATH` if ffmpeg is not on the PATH, and `--only recon,r2v,t2v,race` to
+rebuild some tasks only. The script writes `static/videos/<name>.mp4`, a poster
 `<name>.jpg`, and `static/videos/clips.json`, which the page reads to fill the
-Reconstruction, Reference to video and Text to video tabs. A tab with no clips is hidden.
-Pick clips by editing `CLIPS` at the top of the script.
+Reconstruction, Reference to Video and Text to Video tabs and the decoding race.
+Pick clips by editing the lists at the top of the script.
 
-Layouts: reconstruction is a 2×2 grid of 960×540 panels (ground truth, official VAE,
-baseline, LiveVAE); reference to video is three 640×360 panels in a row (clay render,
-MiniMax-H3, LiveVAE); text to video is two 960×536 panels. Gaps are 12 px of white.
-The page shows every panel of a clip at once, labelled from `clips.json`, or two panels
-in a wipe view. Clips not rebuilt in a run keep their existing `clips.json` entries.
+Layouts:
+
+- Reconstruction: ground truth and LiveVAE in full on top, with the zoomed region
+  marked, and one zoom tile per method below (eight methods per latent space). The
+  region and the LPIPS under each tile come from the case's `info.txt`. Clips shorter
+  than two seconds play slowed down to three seconds.
+- Reference to video: reference image, code video, MiniMax-H3 VAE, LiveVAE in a row.
+- Text to video: official VAE and LiveVAE side by side, for MiniMax-H3 and Wan2.2.
+  A case listed in `T2V_ZOOM` would also get a zoom row; none is listed now.
+- Decoding race (Speed section): the official and LiveVAE decodes are separate files.
+  `main.js` plays each at the 720p decoder throughput from `speedData`.
+
+`clips.json` stores a rectangle and label per panel; the page places the labels from
+it. After replacing videos,
+bump `assetVersion` in `main.js` so browsers do not reuse cached files.
 
 ## Explainers
 

@@ -1,18 +1,16 @@
 // Results: every clip is one composite video, so all of its panels share one clock.
-// "All panels" shows the composite with a label on each panel; "Wipe" paints two panels
-// of the same frame onto canvases and lets the reader drag the divider.
+// The page lays a label over or under each panel, from the rectangles in clips.json.
 const videoDir = 'static/videos/';
 const $ = (id) => document.getElementById(id);
 const format = (n) => Number(n.toFixed(2)).toString();
 const taskNotes = {
-  recon: 'Every VAE encodes and decodes the same clip at its source resolution.',
-  r2v: 'The clay render comes from the code world model. MiniMax-H3 turns it into video conditioned on the same reference image and prompt; each VAE encodes the reference and decodes the result.',
-  t2v: 'Both VAEs decode the same generated latents.',
+  recon: 'Top: ground truth and LiveVAE in full. Bottom: the marked region for every method, with its LPIPS (lower is better).',
+  r2v: 'MiniMax-H3 generates from the reference image and the code video. Each VAE encodes the reference and decodes the result.',
+  t2v: 'Both VAEs decode the same latents.',
 };
 
 function startGallery(clips) {
-  const allView = $('all-view'), wipeView = $('wipe-view'), stage = $('compare-stage');
-  const canvases = [...stage.querySelectorAll('canvas')];
+  const allView = $('all-view');
   // A tab whose task has no clips in the manifest stays hidden.
   const tasks = new Set(Object.values(clips).map(c => c.task.split('_')[0]));
   const tabs = [...document.querySelectorAll('#results [role=tab]')].filter(tab => {
@@ -20,28 +18,16 @@ function startGallery(clips) {
     return !tab.hidden;
   });
   const modelButtons = [...document.querySelectorAll('#latent-switch button')];
-  const method = $('compare-method');
   const time = $('compare-time');
   const playButton = $('compare-play');
   const mediaStatus = $('media-status');
-  let task = 'recon', model = 'h3', mode = 'all', examples = [], index = 0;
-  let video, poster, animationFrame = 0, inView = false, ready = false;
+  let task = 'recon', model = 'h3', examples = [], index = 0;
+  let video, animationFrame = 0, inView = false, ready = false;
   let wantsPlay = !matchMedia('(prefers-reduced-motion: reduce)').matches;
   const curr = () => examples[index][1];
 
-  function drawWipe(source) {
-    const c = curr(), [w, h] = c.panel, cols = c.grid[0], gap = c.gutter || 0;
-    [Number(method.value), c.labels.length - 1].forEach((tile, i) => {
-      const x = (tile % cols) * (w + gap), y = Math.floor(tile / cols) * (h + gap);
-      canvases[i].getContext('2d').drawImage(source, x, y, w, h, 0, 0, w, h);
-    });
-  }
   function render() {
     const c = curr();
-    if (mode === 'wipe') {
-      if (video && video.readyState >= 2) drawWipe(video);
-      else if (poster?.naturalWidth) drawWipe(poster);
-    }
     const frame = video && video.readyState >= 1
       ? Math.min(c.frames - 1, Math.floor(video.currentTime * c.fps + .001)) : +time.value;
     time.value = frame;
@@ -75,21 +61,14 @@ function startGallery(clips) {
     playButton.setAttribute('aria-label', 'Play comparison');
 
     allView.style.aspectRatio = c.width + ' / ' + c.height;
-    stage.style.setProperty('--tile', c.panel[0] + ' / ' + c.panel[1]);
-    canvases.forEach(canvas => { canvas.width = c.panel[0]; canvas.height = c.panel[1]; });
-
-    const still = new Image();
-    poster = still;
-    still.onload = () => { if (still === poster) render(); };
-    still.src = path + '.jpg';
 
     const player = document.createElement('video');
     video = player;
     player.muted = player.loop = player.playsInline = true;
     player.preload = 'none';
-    player.poster = path + '.jpg';
-    player.setAttribute('aria-label', c.title + ': ' + c.labels.join(', '));
-    player.dataset.src = path + '.mp4';
+    player.poster = path + '.jpg?v=' + assetVersion;
+    player.setAttribute('aria-label', c.title + ': ' + c.panels.map(p => p.label).join(', '));
+    player.dataset.src = path + '.mp4?v=' + assetVersion;
     player.addEventListener('loadeddata', () => {
       if (video !== player) return;
       ready = true; render(); syncPlayback();
@@ -114,40 +93,54 @@ function startGallery(clips) {
     render();
     if (inView) loadCurrentVideo();
   }
+  // Full panels carry their label in the corner; zoom tiles carry it underneath, with the
+  // LPIPS of the zoomed region, and the LiveVAE tile gets an outline.
   function placeLabels(c) {
-    const [w, h] = c.panel, [cols] = c.grid, gap = c.gutter || 0;
-    $('all-labels').replaceChildren(...c.labels.map((label, i) => {
+    const pct = (v, total) => v / total * 100 + '%';
+    const tags = [];
+    c.panels.forEach(({ label, rect: [x, y, w, h], zoom, ours, sub }) => {
       const tag = document.createElement('span');
       tag.textContent = label;
-      tag.style.left = ((i % cols) * (w + gap)) / c.width * 100 + '%';
-      tag.style.top = (Math.floor(i / cols) * (h + gap)) / c.height * 100 + '%';
-      if (i === c.labels.length - 1) tag.className = 'ours';
-      return tag;
-    }));
+      tag.className = (zoom ? 'below' : '') + (ours ? ' ours' : '');
+      tag.style.left = pct(x, c.width);
+      tag.style.top = pct(zoom ? y + h : y, c.height);
+      if (zoom) {
+        tag.style.width = pct(w, c.width);
+        if (sub) tag.appendChild(Object.assign(document.createElement('small'), { textContent: sub }));
+        if (ours) {
+          const ring = document.createElement('i');
+          Object.assign(ring.style, { left: pct(x, c.width), top: pct(y, c.height), width: pct(w, c.width), height: pct(h, c.height) });
+          tags.push(ring);
+        }
+      }
+      tags.push(tag);
+    });
+    $('all-labels').replaceChildren(...tags);
+    const zooms = c.panels.filter(p => p.zoom);
+    allView.classList.toggle('has-below', zooms.length > 0);
+    $('zoom-legend').textContent = zooms.length ? 'Zoom tiles, left to right: ' + zooms.map(p => p.label).join(', ') + '.' : '';
   }
   function selectExample(direction = 0) {
     const [, c] = examples[index];
-    const previous = method.selectedOptions[0]?.text;
-    method.replaceChildren(...c.labels.slice(0, -1).map((label, n) => new Option(label, n)));
-    const matched = [...method.options].find(o => o.text === previous);
-    method.value = matched?.value ?? (task === 'r2v' ? '1' : '0');
-    $('left-label').textContent = method.selectedOptions[0].text;
     $('example-title').textContent = c.title;
-    $('example-meta').textContent = [c.resolution, format(c.seconds) + ' s', format(c.fps) + ' fps', c.frames + ' frames'].filter(Boolean).join(' · ');
+    const slowed = c.source_fps && c.source_fps !== c.fps;
+    $('example-meta').textContent = [c.resolution, c.frames + ' frames',
+      slowed ? 'slowed from ' + format(c.source_fps) + ' to ' + format(c.fps) + ' fps' : format(c.fps) + ' fps'].filter(Boolean).join(' · ');
+    $('example-note').textContent = c.note || '';
+    $('example-note').hidden = !c.note;
     $('example-count').textContent = (index + 1) + ' / ' + examples.length;
     for (const id of ['previous-example', 'next-example']) $(id).disabled = examples.length < 2;
     placeLabels(c);
-    const shown = mode === 'all' ? allView : stage;
-    shown.classList.remove('enter');
+    allView.classList.remove('enter');
     if (direction) {
-      shown.style.setProperty('--enter', direction * 16 + 'px');
-      void shown.offsetWidth;
-      shown.classList.add('enter');
+      allView.style.setProperty('--enter', direction * 16 + 'px');
+      void allView.offsetWidth;
+      allView.classList.add('enter');
     }
     useMedia();
   }
   function filter() {
-    const key = task === 'recon' ? 'recon_' + model : task;
+    const key = task === 'r2v' ? task : task + '_' + model;
     examples = Object.entries(clips).filter(([, c]) => c.task === key);
     if (!examples.length) throw new Error('No matching video examples.');
     index = 0;
@@ -158,7 +151,7 @@ function startGallery(clips) {
     tabs.forEach(t => { t.tabIndex = t === tab ? 0 : -1; t.setAttribute('aria-selected', t === tab); });
     $('result-view').setAttribute('aria-labelledby', tab.id);
     $('task-note').textContent = taskNotes[task];
-    $('latent-switch').hidden = task !== 'recon';
+    $('latent-switch').hidden = task === 'r2v';
     filter();
   }
   function advance(d) {
@@ -166,15 +159,6 @@ function startGallery(clips) {
     index = (index + d + examples.length) % examples.length;
     selectExample(d);
   }
-  function setMode(next) {
-    mode = next;
-    allView.hidden = mode !== 'all';
-    wipeView.hidden = mode !== 'wipe';
-    $('mode-all').setAttribute('aria-pressed', mode === 'all');
-    $('mode-wipe').setAttribute('aria-pressed', mode === 'wipe');
-    render();
-  }
-
   tabs.forEach((tab, i) => {
     tab.addEventListener('click', () => changeTask(tab));
     tab.addEventListener('keydown', e => {
@@ -199,13 +183,6 @@ function startGallery(clips) {
       e.preventDefault(); advance(e.key === 'ArrowRight' ? 1 : -1);
     }
   });
-  method.addEventListener('change', () => {
-    $('left-label').textContent = method.selectedOptions[0].text;
-    render();
-  });
-  $('mode-all').addEventListener('click', () => setMode('all'));
-  $('mode-wipe').addEventListener('click', () => setMode('wipe'));
-  $('wipe-range').addEventListener('input', e => stage.style.setProperty('--split', e.target.value + '%'));
   playButton.addEventListener('click', () => {
     wantsPlay = video.paused; loadCurrentVideo(); syncPlayback();
   });
@@ -228,10 +205,107 @@ function startGallery(clips) {
   } else { inView = true; loadCurrentVideo(); }
 }
 
+// Decoding race: the official VAE and LiveVAE decode the same latents. Each lane plays its
+// video at that decoder's measured throughput (720p row of speedData), so the lanes finish
+// after the time each decoder would need for the whole clip.
+function startRace(clips) {
+  const root = $('race');
+  if (!root || !clips.race_h3) return;
+  const lanes = [...root.querySelectorAll('.lane')].map(el => ({
+    el, video: el.querySelector('video'), tag: el.querySelector('.lane-tag'), bar: el.querySelector('.lane-bar i'),
+    count: el.querySelector('.lane-count'), time: el.querySelector('.lane-time'),
+  }));
+  const buttons = [...root.querySelectorAll('.switch button')];
+  const replay = $('race-replay');
+  let model = 'h3', clip, inView = false, raf = 0, restart = 0;
+  let autoplay = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Decoder throughput in frames per second: the table times 22 frame clips (21 for Wan2.2).
+  function throughput(name) {
+    const row = speedData[model].find(r => r.name === name) || speedData[model][0];
+    return (model === 'h3' ? 22 : 21) / (row.r[1][1] / 1000);
+  }
+  function draw() {
+    let done = true;
+    lanes.forEach(lane => {
+      const v = lane.video;
+      const decoded = v.ended ? clip.frames : Math.min(clip.frames, Math.floor(v.currentTime * clip.fps + .001) + (v.currentTime > 0 ? 1 : 0));
+      lane.bar.style.width = decoded / clip.frames * 100 + '%';
+      lane.count.textContent = 'Decoded ' + decoded + ' / ' + clip.frames + ' frames';
+      lane.time.textContent = (decoded / lane.rate).toFixed(1) + ' s';
+      lane.el.classList.toggle('done', decoded >= clip.frames);
+      if (decoded < clip.frames) done = false;
+    });
+    return done;
+  }
+  function loop() {
+    raf = 0;
+    if (draw()) { if (autoplay && inView) restart = setTimeout(run, 2500); return; }
+    if (lanes.some(l => !l.video.paused)) raf = requestAnimationFrame(loop);
+  }
+  function run() {
+    clearTimeout(restart); cancelAnimationFrame(raf);
+    const ready = () => lanes.every(l => l.video.readyState >= 3);
+    lanes.forEach(l => {
+      if (!l.video.hasAttribute('src')) { l.video.src = l.video.dataset.src; l.video.load(); }
+      l.video.pause();
+      if (l.video.readyState >= 1) l.video.currentTime = 0;
+    });
+    const go = () => {
+      if (!ready() || !inView) return;
+      lanes.forEach(l => {
+        l.video.currentTime = 0; l.video.playbackRate = l.rate / clip.fps;
+        l.video.play().catch(() => {});
+      });
+      if (!raf) raf = requestAnimationFrame(loop);
+    };
+    if (ready()) go();
+    else lanes.forEach(l => l.video.addEventListener('canplaythrough', go, { once: true }));
+    draw();
+  }
+  function setModel(next) {
+    model = next; clip = clips['race_' + model];
+    clearTimeout(restart); cancelAnimationFrame(raf); raf = 0;
+    buttons.forEach(b => b.setAttribute('aria-pressed', b.dataset.model === model));
+    const names = [speedData[model][0].name, 'LiveVAE'];
+    lanes.forEach((lane, i) => {
+      const v = lane.video;
+      v.pause(); v.removeAttribute('src'); v.load();
+      v.dataset.src = videoDir + clip.files[i] + '.mp4?v=' + assetVersion;
+      v.poster = videoDir + clip.files[i] + '.jpg?v=' + assetVersion;
+      v.style.aspectRatio = clip.width + ' / ' + clip.height;
+      lane.tag.textContent = clip.labels[i];
+      lane.rate = throughput(names[i]);
+    });
+    const [a, b] = lanes.map(l => l.rate);
+    $('race-note').textContent = 'Each side plays at its 720p decoder throughput from the table (H100, bs=1): '
+      + a.toFixed(1) + ' against ' + b.toFixed(1) + ' frames per second, so ' + clip.frames + ' frames take '
+      + (clip.frames / a).toFixed(1) + ' s against ' + (clip.frames / b).toFixed(1) + ' s.';
+    draw();
+    if (inView && autoplay) run();
+  }
+  lanes.forEach(l => {
+    l.video.addEventListener('ended', () => { if (!raf) raf = requestAnimationFrame(loop); });
+  });
+  buttons.forEach(b => b.addEventListener('click', () => setModel(b.dataset.model)));
+  replay.addEventListener('click', () => { autoplay = true; inView = true; run(); });
+  setModel('h3');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      if (inView && autoplay) run();
+      else if (!inView) { clearTimeout(restart); lanes.forEach(l => l.video.pause()); }
+    }, { threshold: .35 }).observe(root);
+  }
+}
+
+// Bump when the videos change, so browsers do not reuse cached files of the same name.
+const assetVersion = 'cases-3';
+
 // no-cache revalidates with the server, so a manifest cached before an update is never used.
 fetch(videoDir + 'clips.json', { cache: 'no-cache' })
   .then(response => { if (!response.ok) throw Error(); return response.json(); })
-  .then(startGallery)
+  .then(clips => { startGallery(clips); startRace(clips); })
   .catch(() => { $('example-title').textContent = 'Video examples could not be loaded.'; });
 
 document.querySelectorAll('.copy').forEach((button) => {
@@ -281,7 +355,7 @@ const speedData = {
   const maxLog = 2; // the bar axis runs from 1x to 100x on a log scale
   const ticks = [1, 2, 5, 10, 20, 50, 100];
   const at = (v) => Math.min(100, Math.max(0, Math.log10(v) / maxLog * 100));
-  const kindLabel = { official: 'Official', both: 'Encoder + decoder', dec: 'Decoder only', ours: 'Encoder + decoder' };
+  const kindLabel = { official: 'Official', both: 'Encoder + Decoder', dec: 'Decoder Only', ours: 'Encoder + Decoder' };
   const ms = (v) => v >= 1000 ? (v / 1000).toFixed(2) + ' s' : v.toFixed(v < 100 ? 1 : 0) + ' ms';
   axis.innerHTML = '<span></span><span></span><span class="sp-ticks">'
     + ticks.map(t => `<span class="${[2, 20, 50].includes(t) ? 'minor' : ''}" style="left:${at(t)}%">${t}&times;</span>`).join('') + '</span>';
