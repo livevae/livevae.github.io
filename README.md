@@ -2,7 +2,7 @@
 
 Project page for **LiveVAE: Causal Window Attention Makes Efficient Streaming Video VAE**.
 
-Live site: https://ddxsg24.github.io/LiveVAE-page/
+Live site: https://livevae.github.io/
 
 ## Layout
 
