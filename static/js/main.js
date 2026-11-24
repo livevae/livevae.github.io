@@ -4,10 +4,19 @@ const videoDir = 'static/videos/';
 const $ = (id) => document.getElementById(id);
 const format = (n) => Number(n.toFixed(2)).toString();
 const taskNotes = {
-  recon: 'Top: ground truth and LiveVAE in full. Bottom: the marked region for every method, with its LPIPS (lower is better).',
-  r2v: 'MiniMax-H3 generates from the reference image and the code video. Each VAE encodes the reference and decodes the result.',
-  t2v: 'Both VAEs decode the same latents.',
+  recon: 'Top: ground truth and LiveVAE in full. Bottom: the marked region for every method, with its End to End speedup over the official VAE at 720p and its LPIPS (lower is better).',
+  r2v: 'MiniMax-H3 generates from the reference image and the code video. Each VAE encodes the reference and decodes the result; the speedup is End to End at 720p.',
+  t2v: 'Both VAEs decode the same latents; the speedup is for decoding at 720p.',
 };
+
+// Speedup of a method over the official VAE at 720p, from speedData. part is 'e2e' or 'dec';
+// a decoder only method is charged the official encoder time. null when the method is not listed.
+function speedup(model, label, part) {
+  const rows = speedData[model], row = rows.find(r => r.name === label.replace(' (ours)', ''));
+  if (!row || !row.r[1]) return null;
+  const [oe, od] = rows[0].r[1], [e, d] = row.r[1];
+  return part === 'dec' ? od / d : (oe + od) / ((e ?? oe) + d);
+}
 
 function startGallery(clips) {
   const allView = $('all-view');
@@ -98,14 +107,19 @@ function startGallery(clips) {
   function placeLabels(c) {
     const pct = (v, total) => v / total * 100 + '%';
     const tags = [];
+    const space = task === 'r2v' ? 'h3' : model, part = task === 't2v' ? 'dec' : 'e2e';
     c.panels.forEach(({ label, rect: [x, y, w, h], zoom, ours, sub }) => {
       const tag = document.createElement('span');
-      tag.textContent = label;
+      const fast = speedup(space, label, part);
+      const times = fast === null ? '' : fast === 1 ? '1×' : fast.toFixed(1) + '×';
+      // Corner labels name the speedup on the LiveVAE panel only; zoom tiles show it for every method.
+      tag.textContent = label + (!zoom && ours && times ? ' · ' + times + (part === 'dec' ? ' faster decoding' : ' faster') : '');
       tag.className = (zoom ? 'below' : '') + (ours ? ' ours' : '');
       tag.style.left = pct(x, c.width);
       tag.style.top = pct(zoom ? y + h : y, c.height);
       if (zoom) {
         tag.style.width = pct(w, c.width);
+        tag.appendChild(Object.assign(document.createElement('b'), { textContent: times ? (fast === 1 ? '1× (official)' : times + ' faster') : ' ' }));
         if (sub) tag.appendChild(Object.assign(document.createElement('small'), { textContent: sub }));
         if (ours) {
           const ring = document.createElement('i');
@@ -300,7 +314,7 @@ function startRace(clips) {
 }
 
 // Bump when the videos change, so browsers do not reuse cached files of the same name.
-const assetVersion = 'cases-3';
+const assetVersion = 'cases-4';
 
 // no-cache revalidates with the server, so a manifest cached before an update is never used.
 fetch(videoDir + 'clips.json', { cache: 'no-cache' })

@@ -259,9 +259,11 @@ button.arrow:disabled { opacity: .4; cursor: default; }
 .all-view video { display: block; width: 100%; height: 100%; }
 .all-labels span { position: absolute; margin: 8px 0 0 8px; padding: 1px 7px; border-radius: 4px; background: rgba(18, 27, 41, .78); color: #fff; font-size: 13px; font-weight: 600; line-height: 1.6; pointer-events: none; white-space: nowrap; }
 .all-labels span.ours { background: var(--accent); }
-.all-view.has-below { margin-bottom: 46px; }
+.all-view.has-below { margin-bottom: 68px; }
 .all-labels span.below { margin: 5px 0 0; padding: 0; background: none; color: var(--text); text-align: center; font-size: 12.5px; line-height: 1.35; white-space: normal; }
 .all-labels span.below.ours { color: var(--accent); background: none; }
+.all-labels span.below b { display: block; margin: 1px 0; color: var(--muted); font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.all-labels span.below.ours b { color: var(--accent); font-size: 16px; }
 .all-labels span.below small { display: block; color: var(--muted); font-size: 11.5px; font-weight: 400; font-variant-numeric: tabular-nums; }
 .all-labels span.below.ours small { color: var(--accent); font-weight: 600; }
 .all-labels i { position: absolute; box-shadow: inset 0 0 0 3px var(--accent); pointer-events: none; }
